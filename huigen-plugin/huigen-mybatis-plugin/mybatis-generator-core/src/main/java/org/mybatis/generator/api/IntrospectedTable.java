@@ -38,6 +38,7 @@ import org.mybatis.generator.internal.rules.ConditionalModelRules;
 import org.mybatis.generator.internal.rules.FlatModelRules;
 import org.mybatis.generator.internal.rules.HierarchicalModelRules;
 import org.mybatis.generator.internal.rules.Rules;
+import org.mybatis.generator.internal.util.FileNameUtil;
 
 /**
  * Base class for all code generator implementations. This class provides many
@@ -812,14 +813,14 @@ public abstract class IntrospectedTable {
         StringBuilder sb = new StringBuilder();
         sb.append(calculateJavaClientImplementationPackage());
         sb.append('.');
-        sb.append(fullyQualifiedTable.getDomainObjectName());
+        sb.append(FileNameUtil.deleteDomainTag(fullyQualifiedTable.getDomainObjectName()));
         sb.append("DAOImpl"); //$NON-NLS-1$
         setDAOImplementationType(sb.toString());
 
         sb.setLength(0);
         sb.append(calculateJavaClientInterfacePackage());
         sb.append('.');
-        sb.append(fullyQualifiedTable.getDomainObjectName());
+        sb.append(FileNameUtil.deleteDomainTag(fullyQualifiedTable.getDomainObjectName()));
         sb.append("DAO"); //$NON-NLS-1$
         setDAOInterfaceType(sb.toString());
 
@@ -833,7 +834,7 @@ public abstract class IntrospectedTable {
                 sb.append(fullyQualifiedTable.getDomainObjectSubPackage());
                 sb.append('.');
             }
-            sb.append(fullyQualifiedTable.getDomainObjectName());
+            sb.append(FileNameUtil.deleteDomainTag(fullyQualifiedTable.getDomainObjectName()));
             sb.append("Mapper"); //$NON-NLS-1$
         }
         setMyBatis3JavaMapperType(sb.toString());
@@ -878,7 +879,7 @@ public abstract class IntrospectedTable {
         StringBuilder sb = new StringBuilder();
         sb.append(pakkage);
         sb.append('.');
-        sb.append(fullyQualifiedTable.getDomainObjectName());
+        sb.append(FileNameUtil.deleteDomainTag(fullyQualifiedTable.getDomainObjectName()));
         sb.append("Key"); //$NON-NLS-1$
         setPrimaryKeyType(sb.toString());
 
@@ -898,7 +899,7 @@ public abstract class IntrospectedTable {
         sb.setLength(0);
         sb.append(pakkage);
         sb.append('.');
-        sb.append(fullyQualifiedTable.getDomainObjectName());
+        sb.append(FileNameUtil.deleteDomainTag(fullyQualifiedTable.getDomainObjectName()));
         sb.append("Example"); //$NON-NLS-1$
         setExampleType(sb.toString());
     }
@@ -945,7 +946,7 @@ public abstract class IntrospectedTable {
             }
             sb.append(".xml"); //$NON-NLS-1$
         } else {
-            sb.append(fullyQualifiedTable.getDomainObjectName());
+            sb.append(FileNameUtil.deleteDomainTag(fullyQualifiedTable.getDomainObjectName()));
             sb.append("Mapper.xml"); //$NON-NLS-1$
         }
         return sb.toString();
@@ -962,7 +963,7 @@ public abstract class IntrospectedTable {
         if (stringHasValue(tableConfiguration.getMapperName())) {
             sb.append(tableConfiguration.getMapperName());
         } else {
-            sb.append(fullyQualifiedTable.getDomainObjectName());
+            sb.append(FileNameUtil.deleteDomainTag(fullyQualifiedTable.getDomainObjectName()));
             sb.append("Mapper"); //$NON-NLS-1$
         }
         return sb.toString();
