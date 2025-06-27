@@ -199,7 +199,7 @@ public class MyBatisGeneratorMojo extends AbstractMojo {
             StringTokenizer st = new StringTokenizer(tableNames, ","); //$NON-NLS-1$
             while (st.hasMoreTokens()) {
                 String s = st.nextToken().trim();
-                if (s.length() > 0) {
+                if (!s.isEmpty()) {
                     fullyqualifiedTables.add(s);
                 }
             }
@@ -210,7 +210,7 @@ public class MyBatisGeneratorMojo extends AbstractMojo {
             StringTokenizer st = new StringTokenizer(contexts, ","); //$NON-NLS-1$
             while (st.hasMoreTokens()) {
                 String s = st.nextToken().trim();
-                if (s.length() > 0) {
+                if (!s.isEmpty()) {
                     contextsToRun.add(s);
                 }
             }
