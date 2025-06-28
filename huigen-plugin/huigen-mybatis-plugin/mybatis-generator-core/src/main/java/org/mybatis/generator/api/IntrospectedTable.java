@@ -39,6 +39,7 @@ import org.mybatis.generator.internal.rules.FlatModelRules;
 import org.mybatis.generator.internal.rules.HierarchicalModelRules;
 import org.mybatis.generator.internal.rules.Rules;
 import org.mybatis.generator.internal.util.FileNameUtil;
+import org.mybatis.generator.internal.util.StringUtility;
 
 /**
  * Base class for all code generator implementations. This class provides many
@@ -877,7 +878,12 @@ public abstract class IntrospectedTable {
         String pakkage = calculateJavaModelPackage();
 
         StringBuilder sb = new StringBuilder();
-        sb.append(pakkage);
+        String customPrimaryKeyPackage = context.getJavaModelGeneratorConfiguration().getProperty("primaryKeyPackage");
+        if (StringUtility.stringHasValue(customPrimaryKeyPackage)) {
+            sb.append(customPrimaryKeyPackage);
+        } else {
+            sb.append(pakkage);
+        }
         sb.append('.');
         sb.append(FileNameUtil.deleteDomainTag(fullyQualifiedTable.getDomainObjectName()));
         sb.append("Key"); //$NON-NLS-1$
@@ -896,8 +902,13 @@ public abstract class IntrospectedTable {
         sb.append("WithBLOBs"); //$NON-NLS-1$
         setRecordWithBLOBsType(sb.toString());
 
+        String customMapperPackage = context.getJavaModelGeneratorConfiguration().getProperty("examplePackage");
         sb.setLength(0);
-        sb.append(pakkage);
+        if (StringUtility.stringHasValue(customMapperPackage)) {
+            sb.append(customMapperPackage);
+        } else {
+            sb.append(pakkage);
+        }
         sb.append('.');
         sb.append(FileNameUtil.deleteDomainTag(fullyQualifiedTable.getDomainObjectName()));
         sb.append("Example"); //$NON-NLS-1$
